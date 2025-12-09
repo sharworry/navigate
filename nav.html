@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Navigator</title>
+
+    <style>
+        /* Reset and font */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+        }
+
+        /* Fullscreen background image */
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            z-index: -1;
+        }
+
+        /* Overlay */
+        .overlay {
+            background: rgba(0, 0, 0, 0.2);
+            min-height: 100vh;
+            padding-top: 80px;
+            padding-bottom: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* Main box */
+        .container {
+            width: 90%;
+            max-width: 550px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.35);
+            border-radius: 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            color: #fff;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        input {
+            width: 90%;
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 95%;
+            padding: 15px;
+            background: #0b6623;
+            border: none;
+            color: white;
+            font-size: 17px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #08551c;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            display: none;
+            color: #000;
+        }
+
+        /* =============================== */
+        /* GREEN MAP TOUR BUTTON — TOP RIGHT */
+        /* =============================== */
+        .map-tour-btn {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: #0c9f38;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+        }
+        .map-tour-btn:hover {
+            background: #067529;
+        }
+
+        /* Mobile tweaks */
+        @media only screen and (max-width: 768px) {
+            h2 { font-size: 24px; }
+            input, button { font-size: 15px; padding: 12px; }
+            .map-tour-btn { font-size: 14px; padding: 10px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ⭐ MAP TOUR BUTTON -->
+    <button class="map-tour-btn" onclick="window.location.href='hello.html'">
+        MAP TOUR
+    </button>
+
+    <!-- Background Image -->
+    <img src="clg.jpg" alt="Campus" class="bg-image">
+
+    <div class="overlay">
+        <div class="container">
+
+            <h2>Campus Navigator</h2>
+
+            <input 
+                type="text" 
+                id="destination" 
+                placeholder="Where do you want to go? (e.g., C205, Physics Lab)"
+            >
+
+            <button onclick="goToNavigator()">NAVIGATE</button>
+
+            <div id="resultBox" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        function goToNavigator() {
+            let dest = document.getElementById("destination").value.trim();
+            let box = document.getElementById("resultBox");
+
+            if (dest === "") {
+                box.style.display = "block";
+                box.innerHTML = "Please enter a location.";
+                return;
+            }
+
+            box.style.display = "block";
+            box.innerHTML = "Navigating to <b>" + dest + "</b>...";
+
+            // Redirect to second page
+            window.location.href = "hello.html?dest=" + encodeURIComponent(dest);
+        }
+    </script>
+
+</body>
+</html>
